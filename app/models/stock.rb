@@ -5,10 +5,11 @@ class Stock < ActiveRecord::Base
     end
     
     def self.new_from_lookup(ticker_symbol)
-        look_up_stock = StockQuote::Stock.quote(ticker_symbol)
-        return nil unless look_up_stock.name 
+        # look up stock
+        looked_up_stock = StockQuote::Stock.quote(ticker_symbol)
+        return nil unless looked_up_stock.name 
         
-        new_stock = new(ticker: look_up_stock.symbol, name: look_up_stock.name)
+        new_stock = new(ticker: looked_up_stock.symbol, name: looked_up_stock.name)
         new_stock.last_price = new_stock.price
         new_stock
     end
